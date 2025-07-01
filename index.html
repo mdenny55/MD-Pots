@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M's Pottery</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f8f5f2;
+    }
+    .gallery, .sub-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    img:hover {
+      transform: scale(1.02);
+    }
+    .sub-gallery {
+      display: none;
+    }
+    .visible {
+      display: grid !important;
+    }
+    .back-button {
+      display: none;
+      margin: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #7b4e2d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .back-button.visible {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <button class="back-button" id="backButton">Back</button>
+
+  <section class="gallery" id="mainGallery">
+    <img src="pot1a.jpg" alt="pot1" data-group="1" />
+    <img src="pot2a.jpg" alt="pot2" data-group="2" />
+    <img src="pot3a.jpg" alt="pot3" data-group="3" />
+    <img src="pot4a.jpg" alt="pot4" data-group="4" />
+    <img src="pot5a.jpg" alt="pot5" data-group="5" />
+  </section>
+
+  <section class="sub-gallery" data-group="1">
+    <img src="pot1a.jpg" alt="pot1" />
+    <img src="pot1b.jpg" alt="pot1" />
+    <img src="pot1c.jpg" alt="pot1" />
+    <img src="pot1d.jpg" alt="pot1" />
+    <img src="pot1e.jpg" alt="pot1" />
+  </section>
+
+  <section class="sub-gallery" data-group="2">
+    <img src="pot2a.jpg" alt="pot2" />
+    <img src="pot2b.jpg" alt="pot2" />
+    <img src="pot2c.jpg" alt="pot2" />
+    <img src="pot2d.jpg" alt="pot2" />
+    <img src="pot2e.jpg" alt="pot2" />
+    <img src="pot2f.jpg" alt="pot2" />
+  </section>
+
+  <section class="sub-gallery" data-group="3">
+    <img src="pot3a.jpg" alt="pot3" />
+    <img src="pot3b.jpg" alt="pot3" />
+    <img src="pot3c.jpg" alt="pot3" />
+    <img src="pot3d.jpg" alt="pot3" />
+  </section>
+
+  <section class="sub-gallery" data-group="4">
+    <img src="pot4a.jpg" alt="pot4" />
+    <img src="pot4b.jpg" alt="pot4" />
+    <img src="pot4c.jpg" alt="pot4" />
+    <img src="pot4d.jpg" alt="pot4" />
+  </section>
+
+  <section class="sub-gallery" data-group="5">
+    <img src="pot5a.jpg" alt="pot5" />
+    <img src="pot5b.jpg" alt="pot5" />
+    <img src="pot5c.jpg" alt="pot5" />
+    <img src="pot5d.jpg" alt="pot5" />
+  </section>
+
+  <script>
+    const mainGallery = document.getElementById('mainGallery');
+    const subGalleries = document.querySelectorAll('.sub-gallery');
+    const backButton = document.getElementById('backButton');
+
+    mainGallery.querySelectorAll('img').forEach(img => {
+      img.addEventListener('click', () => {
+        const group = img.getAttribute('data-group');
+        mainGallery.style.display = 'none';
+        document.querySelector(`.sub-gallery[data-group="${group}"]`).classList.add('visible');
+        backButton.classList.add('visible');
+      });
+    });
+
+    backButton.addEventListener('click', () => {
+      subGalleries.forEach(gallery => gallery.classList.remove('visible'));
+      mainGallery.style.display = 'grid';
+      backButton.classList.remove('visible');
+    });
+  </script>
+</body>
+</html>
