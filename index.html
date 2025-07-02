@@ -9,32 +9,31 @@
       margin: 0;
       font-family: sans-serif;
       background-color: #f8f5f2;
+      overflow: hidden;
     }
-    .gallery, .sub-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
+    .floating-gallery, .floating-sub-gallery {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
     }
-    img {
-      width: 100%;
+    .floating-image {
+      position: absolute;
+      width: 480px; /* 60% bigger than 300px */
       height: auto;
       border-radius: 8px;
       cursor: pointer;
       transition: transform 0.2s;
     }
-    img:hover {
-      transform: scale(1.02);
-    }
-    .sub-gallery {
-      display: none;
-    }
-    .visible {
-      display: grid !important;
+    .floating-image:hover {
+      transform: scale(1.05);
     }
     .back-button {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
       display: none;
-      margin: 1rem;
       padding: 0.5rem 1rem;
       font-size: 1rem;
       background-color: #7b4e2d;
@@ -51,69 +50,110 @@
 <body>
   <button class="back-button" id="backButton">Back</button>
 
-  <section class="gallery" id="mainGallery">
-    <img src="pot1a.jpg" alt="pot1" data-group="1" />
-    <img src="pot2a.jpg" alt="pot2" data-group="2" />
-    <img src="pot3a.jpg" alt="pot3" data-group="3" />
-    <img src="pot4a.jpg" alt="pot4" data-group="4" />
-    <img src="pot5a.jpg" alt="pot5" data-group="5" />
-  </section>
+  <div class="floating-gallery" id="mainGallery">
+    <img src="pot1a.jpg" alt="pot1" data-group="1" class="floating-image" />
+    <img src="pot2a.jpg" alt="pot2" data-group="2" class="floating-image" />
+    <img src="pot3a.jpg" alt="pot3" data-group="3" class="floating-image" />
+    <img src="pot4a.jpg" alt="pot4" data-group="4" class="floating-image" />
+    <img src="pot5a.jpg" alt="pot5" data-group="5" class="floating-image" />
+  </div>
 
-  <section class="sub-gallery" data-group="1">
-    <img src="pot1a.jpg" alt="pot1" />
-    <img src="pot1b.jpg" alt="pot1" />
-    <img src="pot1c.jpg" alt="pot1" />
-    <img src="pot1d.jpg" alt="pot1" />
-    <img src="pot1e.jpg" alt="pot1" />
-  </section>
+  <div class="floating-sub-gallery" data-group="1" style="display: none;">
+    <img src="pot1a.jpg" alt="pot1" class="floating-image" />
+    <img src="pot1b.jpg" alt="pot1" class="floating-image" />
+    <img src="pot1c.jpg" alt="pot1" class="floating-image" />
+    <img src="pot1d.jpg" alt="pot1" class="floating-image" />
+    <img src="pot1e.jpg" alt="pot1" class="floating-image" />
+  </div>
 
-  <section class="sub-gallery" data-group="2">
-    <img src="pot2a.jpg" alt="pot2" />
-    <img src="pot2b.jpg" alt="pot2" />
-    <img src="pot2c.jpg" alt="pot2" />
-    <img src="pot2d.jpg" alt="pot2" />
-    <img src="pot2e.jpg" alt="pot2" />
-    <img src="pot2f.jpg" alt="pot2" />
-  </section>
+  <div class="floating-sub-gallery" data-group="2" style="display: none;">
+    <img src="pot2a.jpg" alt="pot2" class="floating-image" />
+    <img src="pot2b.jpg" alt="pot2" class="floating-image" />
+    <img src="pot2c.jpg" alt="pot2" class="floating-image" />
+    <img src="pot2d.jpg" alt="pot2" class="floating-image" />
+    <img src="pot2e.jpg" alt="pot2" class="floating-image" />
+    <img src="pot2f.jpg" alt="pot2" class="floating-image" />
+  </div>
 
-  <section class="sub-gallery" data-group="3">
-    <img src="pot3a.jpg" alt="pot3" />
-    <img src="pot3b.jpg" alt="pot3" />
-    <img src="pot3c.jpg" alt="pot3" />
-    <img src="pot3d.jpg" alt="pot3" />
-  </section>
+  <div class="floating-sub-gallery" data-group="3" style="display: none;">
+    <img src="pot3a.jpg" alt="pot3" class="floating-image" />
+    <img src="pot3b.jpg" alt="pot3" class="floating-image" />
+    <img src="pot3c.jpg" alt="pot3" class="floating-image" />
+    <img src="pot3d.jpg" alt="pot3" class="floating-image" />
+  </div>
 
-  <section class="sub-gallery" data-group="4">
-    <img src="pot4a.jpg" alt="pot4" />
-    <img src="pot4b.jpg" alt="pot4" />
-    <img src="pot4c.jpg" alt="pot4" />
-    <img src="pot4d.jpg" alt="pot4" />
-  </section>
+  <div class="floating-sub-gallery" data-group="4" style="display: none;">
+    <img src="pot4a.jpg" alt="pot4" class="floating-image" />
+    <img src="pot4b.jpg" alt="pot4" class="floating-image" />
+    <img src="pot4c.jpg" alt="pot4" class="floating-image" />
+    <img src="pot4d.jpg" alt="pot4" class="floating-image" />
+  </div>
 
-  <section class="sub-gallery" data-group="5">
-    <img src="pot5a.jpg" alt="pot5" />
-    <img src="pot5b.jpg" alt="pot5" />
-    <img src="pot5c.jpg" alt="pot5" />
-    <img src="pot5d.jpg" alt="pot5" />
-  </section>
+  <div class="floating-sub-gallery" data-group="5" style="display: none;">
+    <img src="pot5a.jpg" alt="pot5" class="floating-image" />
+    <img src="pot5b.jpg" alt="pot5" class="floating-image" />
+    <img src="pot5c.jpg" alt="pot5" class="floating-image" />
+    <img src="pot5d.jpg" alt="pot5" class="floating-image" />
+  </div>
 
   <script>
     const mainGallery = document.getElementById('mainGallery');
-    const subGalleries = document.querySelectorAll('.sub-gallery');
+    const subGalleries = document.querySelectorAll('.floating-sub-gallery');
     const backButton = document.getElementById('backButton');
+
+    function floatImages(container) {
+      const images = container.querySelectorAll('img');
+      images.forEach(img => {
+        let speedX = (Math.random() - 0.5) * 2;
+        let speedY = (Math.random() - 0.5) * 2;
+
+        img.onload = () => {
+          let x = Math.random() * (window.innerWidth - img.offsetWidth);
+          let y = Math.random() * (window.innerHeight - img.offsetHeight);
+          img.style.left = `${x}px`;
+          img.style.top = `${y}px`;
+
+          function animate() {
+            x += speedX;
+            y += speedY;
+
+            if (x <= 0 || x >= window.innerWidth - img.offsetWidth) speedX *= -1;
+            if (y <= 0 || y >= window.innerHeight - img.offsetHeight) speedY *= -1;
+
+            x = Math.max(0, Math.min(x, window.innerWidth - img.offsetWidth));
+            y = Math.max(0, Math.min(y, window.innerHeight - img.offsetHeight));
+
+            img.style.left = `${x}px`;
+            img.style.top = `${y}px`;
+
+            requestAnimationFrame(animate);
+          }
+
+          animate();
+        };
+
+        if (img.complete) img.onload();
+      });
+    }
+
+    floatImages(mainGallery);
 
     mainGallery.querySelectorAll('img').forEach(img => {
       img.addEventListener('click', () => {
         const group = img.getAttribute('data-group');
         mainGallery.style.display = 'none';
-        document.querySelector(`.sub-gallery[data-group="${group}"]`).classList.add('visible');
+        const subGallery = document.querySelector(`.floating-sub-gallery[data-group="${group}"]`);
+        subGallery.style.display = 'block';
         backButton.classList.add('visible');
+        floatImages(subGallery);
       });
     });
 
     backButton.addEventListener('click', () => {
-      subGalleries.forEach(gallery => gallery.classList.remove('visible'));
-      mainGallery.style.display = 'grid';
+      subGalleries.forEach(gallery => {
+        gallery.style.display = 'none';
+      });
+      mainGallery.style.display = 'block';
       backButton.classList.remove('visible');
     });
   </script>
