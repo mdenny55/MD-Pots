@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M's Pottery</title>
+  <style>
+    #zoomView {
+      display: none;
+    }
+    #zoomView.show {
+      display: flex !important;
+    }
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f8f5f2;
+      overflow: hidden;
+    }
+    .floating-gallery, .floating-sub-gallery {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .floating-image {
+      position: absolute;
+      width: min(90vw, 336px);
+      height: auto;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .floating-image:hover {
+  transform: scale(1.12);
+}
+    .back-button {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+      display: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #7b4e2d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .back-button.visible {
+  display: inline-block !important;
+}
+  
+    @media (max-width: 600px) {
+  .floating-image {
+    width: min(90vw, 70px); /* adjusted max width to 100px */
+  }
+}
+    }
+  </style>
+ </head>
+<body>
+  <button class="back-button" id="backButton" style="display: none;">Back</button>
+
+<!-- Zoom view block now inside body -->
+<div id="zoomView" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #f8f5f2; z-index: 2000; justify-content: center; align-items: center;" class="">
+  <button id="zoomBackButton" style="position: absolute; top: 1rem; left: 1rem; z-index: 2100; padding: 0.5rem 1rem; font-size: 1rem; background-color: #7b4e2d; color: white; border: none; border-radius: 5px; cursor: pointer;">Back</button>
+    <img id="zoomImage" src="" style="max-width: 90vw; max-height: 90vh; transform: scale(1.5); border-radius: 10px; transition: transform 0.3s;" />
+</div>
+  <div class="floating-gallery" id="mainGallery">
+  <img src="pot1a.jpg" alt="pot1" data-group="1" class="floating-image" />
+  <img src="pot2a.jpg" alt="pot2" data-group="2" class="floating-image" />
+  <img src="pot3a.jpg" alt="pot3" data-group="3" class="floating-image" />
+  <img src="pot4a.jpg" alt="pot4" data-group="4" class="floating-image" />
+  <img src="pot5a.jpg" alt="pot5" data-group="5" class="floating-image" />
+  <img src="pot6a.jpg" alt="pot6" data-group="6" class="floating-image" />
+  <img src="pot7a.jpg" alt="pot7" data-group="7" class="floating-image" />
+  <img src="pot8a.jpg" alt="pot8" data-group="8" class="floating-image" />
+  <img src="pot9a.jpg" alt="pot9" data-group="9" class="floating-image" />
+  <img src="pot10a.jpg" alt="pot10" data-group="10" class="floating-image" />
+  <img src="pot11a.jpg" alt="pot11" data-group="11" class="floating-image" />
+  <img src="pot12a.jpg" alt="pot12" data-group="12" class="floating-image" />
+  <img src="pot13a.jpg" alt="pot13" data-group="13" class="floating-image" />
+  <img src="pot14a.jpg" alt="pot14" data-group="14" class="floating-image" />
+  <img src="pot15a.jpg" alt="pot15" data-group="15" class="floating-image" />
+  <img src="pot16a.jpg" alt="pot16" data-group="16" class="floating-image" />
+  <img src="pot17a.jpg" alt="pot17" data-group="17" class="floating-image" />
+  <img src="pot18a.jpg" alt="pot18" data-group="18" class="floating-image" />
+  <img src="pot19a.jpg" alt="pot19" data-group="19" class="floating-image" />
+  <img src="pot20a.jpg" alt="pot20" data-group="20" class="floating-image" />
+  <img src="pot21a.jpg" alt="pot21" data-group="21" class="floating-image" />
+  <img src="pot22a.jpg" alt="pot22" data-group="22" class="floating-image" />
+  <img src="pot23a.jpg" alt="pot23" data-group="23" class="floating-image" />
+  <img src="pot24a.jpg" alt="pot24" data-group="24" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="1" style="display: none;">
+  <img src="pot1a.jpg" alt="pot1" class="floating-image" />
+  <img src="pot1b.jpg" alt="pot1" class="floating-image" />
+  <img src="pot1c.jpg" alt="pot1" class="floating-image" />
+  <img src="pot1d.jpg" alt="pot1" class="floating-image" />
+  <img src="pot1e.jpg" alt="pot1" class="floating-image" />
+  <img src="pot1f.jpg" alt="pot1" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="2" style="display: none;">
+  <img src="pot2a.jpg" alt="pot2" class="floating-image" />
+  <img src="pot2b.jpg" alt="pot2" class="floating-image" />
+  <img src="pot2c.jpg" alt="pot2" class="floating-image" />
+  <img src="pot2d.jpg" alt="pot2" class="floating-image" />
+  <img src="pot2e.jpg" alt="pot2" class="floating-image" />
+  <img src="pot2f.jpg" alt="pot2" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="3" style="display: none;">
+  <img src="pot3a.jpg" alt="pot3" class="floating-image" />
+  <img src="pot3b.jpg" alt="pot3" class="floating-image" />
+  <img src="pot3c.jpg" alt="pot3" class="floating-image" />
+  <img src="pot3d.jpg" alt="pot3" class="floating-image" />
+  <img src="pot3e.jpg" alt="pot3" class="floating-image" />
+  <img src="pot3f.jpg" alt="pot3" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="4" style="display: none;">
+  <img src="pot4a.jpg" alt="pot4" class="floating-image" />
+  <img src="pot4b.jpg" alt="pot4" class="floating-image" />
+  <img src="pot4c.jpg" alt="pot4" class="floating-image" />
+  <img src="pot4d.jpg" alt="pot4" class="floating-image" />
+  <img src="pot4e.jpg" alt="pot4" class="floating-image" />
+  <img src="pot4f.jpg" alt="pot4" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="5" style="display: none;">
+  <img src="pot5a.jpg" alt="pot5" class="floating-image" />
+  <img src="pot5b.jpg" alt="pot5" class="floating-image" />
+  <img src="pot5c.jpg" alt="pot5" class="floating-image" />
+  <img src="pot5d.jpg" alt="pot5" class="floating-image" />
+  <img src="pot5e.jpg" alt="pot5" class="floating-image" />
+  <img src="pot5f.jpg" alt="pot5" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="6" style="display: none;">
+  <img src="pot6a.jpg" alt="pot6" class="floating-image" />
+  <img src="pot6b.jpg" alt="pot6" class="floating-image" />
+  <img src="pot6c.jpg" alt="pot6" class="floating-image" />
+  <img src="pot6d.jpg" alt="pot6" class="floating-image" />
+  <img src="pot6e.jpg" alt="pot6" class="floating-image" />
+  <img src="pot6f.jpg" alt="pot6" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="7" style="display: none;">
+  <img src="pot7a.jpg" alt="pot7" class="floating-image" />
+  <img src="pot7b.jpg" alt="pot7" class="floating-image" />
+  <img src="pot7c.jpg" alt="pot7" class="floating-image" />
+  <img src="pot7d.jpg" alt="pot7" class="floating-image" />
+  <img src="pot7e.jpg" alt="pot7" class="floating-image" />
+  <img src="pot7f.jpg" alt="pot7" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="8" style="display: none;">
+  <img src="pot8a.jpg" alt="pot8" class="floating-image" />
+  <img src="pot8b.jpg" alt="pot8" class="floating-image" />
+  <img src="pot8c.jpg" alt="pot8" class="floating-image" />
+  <img src="pot8d.jpg" alt="pot8" class="floating-image" />
+  <img src="pot8e.jpg" alt="pot8" class="floating-image" />
+  <img src="pot8f.jpg" alt="pot8" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="9" style="display: none;">
+  <img src="pot9a.jpg" alt="pot9" class="floating-image" />
+  <img src="pot9b.jpg" alt="pot9" class="floating-image" />
+  <img src="pot9c.jpg" alt="pot9" class="floating-image" />
+  <img src="pot9d.jpg" alt="pot9" class="floating-image" />
+  <img src="pot9e.jpg" alt="pot9" class="floating-image" />
+  <img src="pot9f.jpg" alt="pot9" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="10" style="display: none;">
+  <img src="pot10a.jpg" alt="pot10" class="floating-image" />
+  <img src="pot10b.jpg" alt="pot10" class="floating-image" />
+  <img src="pot10c.jpg" alt="pot10" class="floating-image" />
+  <img src="pot10d.jpg" alt="pot10" class="floating-image" />
+  <img src="pot10e.jpg" alt="pot10" class="floating-image" />
+  <img src="pot10f.jpg" alt="pot10" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="11" style="display: none;">
+  <img src="pot11a.jpg" alt="pot11" class="floating-image" />
+  <img src="pot11b.jpg" alt="pot11" class="floating-image" />
+  <img src="pot11c.jpg" alt="pot11" class="floating-image" />
+  <img src="pot11d.jpg" alt="pot11" class="floating-image" />
+  <img src="pot11e.jpg" alt="pot11" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="12" style="display: none;">
+  <img src="pot12a.jpg" alt="pot12" class="floating-image" />
+  <img src="pot12b.jpg" alt="pot12" class="floating-image" />
+  <img src="pot12c.jpg" alt="pot12" class="floating-image" />
+  <img src="pot12d.jpg" alt="pot12" class="floating-image" />
+  <img src="pot12e.jpg" alt="pot12" class="floating-image" />
+  <img src="pot12f.jpg" alt="pot12" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="13" style="display: none;">
+  <img src="pot13a.jpg" alt="pot13" class="floating-image" />
+  <img src="pot13b.jpg" alt="pot13" class="floating-image" />
+  <img src="pot13c.jpg" alt="pot13" class="floating-image" />
+  <img src="pot13d.jpg" alt="pot13" class="floating-image" />
+  <img src="pot13e.jpg" alt="pot13" class="floating-image" />
+  <img src="pot13f.jpg" alt="pot13" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="14" style="display: none;">
+  <img src="pot14a.jpg" alt="pot14" class="floating-image" />
+  <img src="pot14b.jpg" alt="pot14" class="floating-image" />
+  <img src="pot14c.jpg" alt="pot14" class="floating-image" />
+  <img src="pot14d.jpg" alt="pot14" class="floating-image" />
+  <img src="pot14e.jpg" alt="pot14" class="floating-image" />
+  <img src="pot14f.jpg" alt="pot14" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="15" style="display: none;">
+  <img src="pot15a.jpg" alt="pot15" class="floating-image" />
+  <img src="pot15b.jpg" alt="pot15" class="floating-image" />
+  <img src="pot15c.jpg" alt="pot15" class="floating-image" />
+  <img src="pot15d.jpg" alt="pot15" class="floating-image" />
+  <img src="pot15e.jpg" alt="pot15" class="floating-image" />
+  <img src="pot15f.jpg" alt="pot15" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="17" style="display: none;">
+  <img src="pot17a.jpg" alt="pot17" class="floating-image" />
+  <img src="pot17b.jpg" alt="pot17" class="floating-image" />
+  <img src="pot17c.jpg" alt="pot17" class="floating-image" />
+  <img src="pot17d.jpg" alt="pot17" class="floating-image" />
+  <img src="pot17e.jpg" alt="pot17" class="floating-image" />
+  <img src="pot17f.jpg" alt="pot17" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="18" style="display: none;">
+  <img src="pot18a.jpg" alt="pot18" class="floating-image" />
+  <img src="pot18b.jpg" alt="pot18" class="floating-image" />
+  <img src="pot18c.jpg" alt="pot18" class="floating-image" />
+  <img src="pot18d.jpg" alt="pot18" class="floating-image" />
+  <img src="pot18e.jpg" alt="pot18" class="floating-image" />
+  <img src="pot18f.jpg" alt="pot18" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="19" style="display: none;">
+  <img src="pot19a.jpg" alt="pot19" class="floating-image" />
+  <img src="pot19b.jpg" alt="pot19" class="floating-image" />
+  <img src="pot19c.jpg" alt="pot19" class="floating-image" />
+  <img src="pot19d.jpg" alt="pot19" class="floating-image" />
+  <img src="pot19e.jpg" alt="pot19" class="floating-image" />
+  <img src="pot19f.jpg" alt="pot19" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="20" style="display: none;">
+  <img src="pot20a.jpg" alt="pot20" class="floating-image" />
+  <img src="pot20b.jpg" alt="pot20" class="floating-image" />
+  <img src="pot20c.jpg" alt="pot20" class="floating-image" />
+  <img src="pot20d.jpg" alt="pot20" class="floating-image" />
+  <img src="pot20e.jpg" alt="pot20" class="floating-image" />
+  <img src="pot20f.jpg" alt="pot20" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="21" style="display: none;">
+  <img src="pot21a.jpg" alt="pot21" class="floating-image" />
+  <img src="pot21b.jpg" alt="pot21" class="floating-image" />
+  <img src="pot21c.jpg" alt="pot21" class="floating-image" />
+  <img src="pot21d.jpg" alt="pot21" class="floating-image" />
+  <img src="pot21e.jpg" alt="pot21" class="floating-image" />
+  <img src="pot21f.jpg" alt="pot21" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="22" style="display: none;">
+  <img src="pot22a.jpg" alt="pot22" class="floating-image" />
+  <img src="pot22b.jpg" alt="pot22" class="floating-image" />
+  <img src="pot22c.jpg" alt="pot22" class="floating-image" />
+  <img src="pot22d.jpg" alt="pot22" class="floating-image" />
+  <img src="pot22e.jpg" alt="pot22" class="floating-image" />
+  <img src="pot22f.jpg" alt="pot22" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="23" style="display: none;">
+  <img src="pot23a.jpg" alt="pot23" class="floating-image" />
+  <img src="pot23b.jpg" alt="pot23" class="floating-image" />
+  <img src="pot23c.jpg" alt="pot23" class="floating-image" />
+  <img src="pot23d.jpg" alt="pot23" class="floating-image" />
+  <img src="pot23e.jpg" alt="pot23" class="floating-image" />
+  <img src="pot23f.jpg" alt="pot23" class="floating-image" />
+</div>
+
+<div class="floating-sub-gallery" data-group="24" style="display: none;">
+  <img src="pot24a.jpg" alt="pot24" class="floating-image" />
+  <img src="pot24b.jpg" alt="pot24" class="floating-image" />
+  <img src="pot24c.jpg" alt="pot24" class="floating-image" />
+  <img src="pot24d.jpg" alt="pot24" class="floating-image" />
+  <img src="pot24e.jpg" alt="pot24" class="floating-image" />
+  <img src="pot24f.jpg" alt="pot24" class="floating-image" />
+</div>
+
+  <script>
+    const mainGallery = document.getElementById('mainGallery');
+    const subGalleries = document.querySelectorAll('.floating-sub-gallery');
+    const backButton = document.getElementById('backButton');
+
+    function floatImages(container) {
+  const images = container.querySelectorAll('img');
+  const animStates = new Map();
+  images.forEach(img => {
+        const baseSpeed = 0.50;
+let angle = Math.random() * Math.PI * 2;
+let speedX = Math.cos(angle) * baseSpeed;
+let speedY = Math.sin(angle) * baseSpeed;
+
+        img.onload = () => {
+          let x = Math.random() * (window.innerWidth - img.offsetWidth);
+          let y = Math.random() * (window.innerHeight - img.offsetHeight);
+          img.style.left = `${x}px`;
+          img.style.top = `${y}px`;
+
+          function animate() {
+  if (!img.dataset.paused) {
+    x += speedX;
+    y += speedY;
+
+    if (x <= 0 || x >= window.innerWidth - img.offsetWidth) speedX *= -1;
+    if (y <= 0 || y >= window.innerHeight - img.offsetHeight) speedY *= -1;
+
+    x = Math.max(0, Math.min(x, window.innerWidth - img.offsetWidth));
+    y = Math.max(0, Math.min(y, window.innerHeight - img.offsetHeight));
+
+    img.style.left = `${x}px`;
+    img.style.top = `${y}px`;
+  }
+  requestAnimationFrame(animate);
+          }
+
+          animate();
+        };
+
+        if (img.complete) img.onload();
+      });
+    }
+
+    floatImages(mainGallery);
+
+    mainGallery.querySelectorAll('img').forEach(img => {
+      img.addEventListener('click', () => {
+        const group = img.getAttribute('data-group');
+        mainGallery.style.display = 'none';
+        const subGallery = document.querySelector(`.floating-sub-gallery[data-group="${group}"]`);
+        subGallery.style.display = 'block';
+        backButton.classList.add('visible');
+        floatImages(subGallery);
+      });
+    });
+
+    backButton.addEventListener('click', () => {
+      subGalleries.forEach(gallery => {
+        gallery.style.display = 'none';
+      });
+      mainGallery.style.display = 'block';
+      backButton.classList.remove('visible');
+    });
+  document.querySelectorAll('.floating-image').forEach(img => {
+  img.addEventListener('mouseenter', () => {
+    document.querySelectorAll('.floating-image').forEach(i => i.dataset.paused = 'true');
+  });
+  img.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.floating-image').forEach(i => delete i.dataset.paused);
+  });
+});
+    // Zoom functionality for sub-gallery images
+document.querySelectorAll('.floating-sub-gallery img').forEach(img => {
+  img.addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('zoomImage').src = img.src;
+    document.getElementById('zoomView').classList.add('show');
+    const parentGallery = img.closest('.floating-sub-gallery');
+    parentGallery.style.display = 'none';
+    document.getElementById('zoomView').setAttribute('data-group', parentGallery.getAttribute('data-group'));
+  });
+});
+
+document.getElementById('zoomBackButton').addEventListener('click', () => {
+  const zoomView = document.getElementById('zoomView');
+  const zoomGroup = document.getElementById('zoomView').getAttribute('data-group');
+  if (zoomGroup) {
+    const subGallery = document.querySelector(`.floating-sub-gallery[data-group="${zoomGroup}"]`);
+    if (subGallery) subGallery.style.display = 'block';
+  }
+  zoomView.classList.remove('show');
+});
+
+</script>
+</body>
+</html>
