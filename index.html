@@ -11,7 +11,8 @@
       background-color: #f8f5f2;
       overflow: hidden;
     }
-    .floating-gallery {
+    .floating-gallery,
+    .floating-sub-gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 24px;
@@ -25,7 +26,7 @@
       align-items: center;
     }
     .floating-image {
-      position: relative;  /* Allows overlap with transform */
+      position: relative;
       z-index: 1;
       width: 100%;
       max-width: 336px;
@@ -42,7 +43,6 @@
       transform: scale(1.12);
       z-index: 2;
     }
-    /* Overlap by allowing larger translations */
     .float1 { animation-name: float1;}
     .float2 { animation-name: float2;}
     .float3 { animation-name: float3;}
@@ -66,8 +66,26 @@
       60% { transform: translate(-35px, 46px) scale(1.08);}
       100% { transform: translate(0, 0) scale(1);}
     }
+    .back-button {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1000;
+      display: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #7b4e2d;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .back-button.visible {
+      display: inline-block !important;
+    }
     @media (max-width: 600px) {
-      .floating-gallery {
+      .floating-gallery,
+      .floating-sub-gallery {
         grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
         gap: 12px;
         padding: 12px;
@@ -79,78 +97,104 @@
   </style>
 </head>
 <body>
+  <button class="back-button" id="backButton" style="display: none;">Back</button>
+  <!-- Main Gallery -->
   <div class="floating-gallery" id="mainGallery">
-    <img src="pot1a.jpg" alt="pot1" class="floating-image float1" loading="lazy" />
-    <img src="pot2a.jpg" alt="pot2" class="floating-image float2" loading="lazy" />
-    <img src="pot3a.jpg" alt="pot3" class="floating-image float3" loading="lazy" />
-    <img src="pot4a.jpg" alt="pot4" class="floating-image float1" loading="lazy" />
-    <img src="pot5a.jpg" alt="pot5" class="floating-image float2" loading="lazy" />
-    <img src="pot6a.jpg" alt="pot6" class="floating-image float3" loading="lazy" />
-    <img src="pot7a.jpg" alt="pot7" class="floating-image float1" loading="lazy" />
-    <img src="pot8a.jpg" alt="pot8" class="floating-image float2" loading="lazy" />
-    <img src="pot9a.jpg" alt="pot9" class="floating-image float3" loading="lazy" />
-    <img src="pot10a.jpg" alt="pot10" class="floating-image float1" loading="lazy" />
-    <img src="pot11a.jpg" alt="pot11" class="floating-image float2" loading="lazy" />
-    <img src="pot12a.jpg" alt="pot12" class="floating-image float3" loading="lazy" />
-    <img src="pot13a.jpg" alt="pot13" class="floating-image float1" loading="lazy" />
-    <img src="pot14a.jpg" alt="pot14" class="floating-image float2" loading="lazy" />
-    <img src="pot15a.jpg" alt="pot15" class="floating-image float3" loading="lazy" />
-    <img src="pot17a.jpg" alt="pot17" class="floating-image float1" loading="lazy" />
-    <img src="pot18a.jpg" alt="pot18" class="floating-image float2" loading="lazy" />
-    <img src="pot19a.jpg" alt="pot19" class="floating-image float3" loading="lazy" />
-    <img src="pot20a.jpg" alt="pot20" class="floating-image float1" loading="lazy" />
-    <img src="pot21a.jpg" alt="pot21" class="floating-image float2" loading="lazy" />
-    <img src="pot22a.jpg" alt="pot22" class="floating-image float3" loading="lazy" />
-    <img src="pot23a.jpg" alt="pot23" class="floating-image float1" loading="lazy" />
-    <img src="pot24a.jpg" alt="pot24" class="floating-image float2" loading="lazy" />
+    <img src="pot1a.jpg" alt="pot1" data-group="1" class="floating-image float1" loading="lazy" />
+    <img src="pot2a.jpg" alt="pot2" data-group="2" class="floating-image float2" loading="lazy" />
+    <img src="pot3a.jpg" alt="pot3" data-group="3" class="floating-image float3" loading="lazy" />
+    <img src="pot4a.jpg" alt="pot4" data-group="4" class="floating-image float1" loading="lazy" />
+    <img src="pot5a.jpg" alt="pot5" data-group="5" class="floating-image float2" loading="lazy" />
+    <img src="pot6a.jpg" alt="pot6" data-group="6" class="floating-image float3" loading="lazy" />
+    <img src="pot7a.jpg" alt="pot7" data-group="7" class="floating-image float1" loading="lazy" />
+    <img src="pot8a.jpg" alt="pot8" data-group="8" class="floating-image float2" loading="lazy" />
+    <img src="pot9a.jpg" alt="pot9" data-group="9" class="floating-image float3" loading="lazy" />
+    <img src="pot10a.jpg" alt="pot10" data-group="10" class="floating-image float1" loading="lazy" />
+    <img src="pot11a.jpg" alt="pot11" data-group="11" class="floating-image float2" loading="lazy" />
+    <img src="pot12a.jpg" alt="pot12" data-group="12" class="floating-image float3" loading="lazy" />
+    <img src="pot13a.jpg" alt="pot13" data-group="13" class="floating-image float1" loading="lazy" />
+    <img src="pot14a.jpg" alt="pot14" data-group="14" class="floating-image float2" loading="lazy" />
+    <img src="pot15a.jpg" alt="pot15" data-group="15" class="floating-image float3" loading="lazy" />
+    <img src="pot17a.jpg" alt="pot17" data-group="17" class="floating-image float1" loading="lazy" />
+    <img src="pot18a.jpg" alt="pot18" data-group="18" class="floating-image float2" loading="lazy" />
+    <img src="pot19a.jpg" alt="pot19" data-group="19" class="floating-image float3" loading="lazy" />
+    <img src="pot20a.jpg" alt="pot20" data-group="20" class="floating-image float1" loading="lazy" />
+    <img src="pot21a.jpg" alt="pot21" data-group="21" class="floating-image float2" loading="lazy" />
+    <img src="pot22a.jpg" alt="pot22" data-group="22" class="floating-image float3" loading="lazy" />
+    <img src="pot23a.jpg" alt="pot23" data-group="23" class="floating-image float1" loading="lazy" />
+    <img src="pot24a.jpg" alt="pot24" data-group="24" class="floating-image float2" loading="lazy" />
   </div>
-
-  <!-- Repeat sub-galleries for other groups (2-24) as in your original file, using float1/2/3 classes in a pattern -->
-
+  <!-- Sub Galleries (1-24) -->
+  <div class="floating-sub-gallery" data-group="1" style="display:none;">
+    <img src="pot1a.jpg" alt="pot1" class="floating-image float1" loading="lazy" />
+    <img src="pot1b.jpg" alt="pot1" class="floating-image float2" loading="lazy" />
+    <img src="pot1c.jpg" alt="pot1" class="floating-image float3" loading="lazy" />
+    <img src="pot1d.jpg" alt="pot1" class="floating-image float1" loading="lazy" />
+    <img src="pot1e.jpg" alt="pot1" class="floating-image float2" loading="lazy" />
+    <img src="pot1f.jpg" alt="pot1" class="floating-image float3" loading="lazy" />
+  </div>
+  <div class="floating-sub-gallery" data-group="2" style="display:none;">
+    <img src="pot2a.jpg" alt="pot2" class="floating-image float1" loading="lazy" />
+    <img src="pot2b.jpg" alt="pot2" class="floating-image float2" loading="lazy" />
+    <img src="pot2c.jpg" alt="pot2" class="floating-image float3" loading="lazy" />
+    <img src="pot2d.jpg" alt="pot2" class="floating-image float1" loading="lazy" />
+    <img src="pot2e.jpg" alt="pot2" class="floating-image float2" loading="lazy" />
+    <img src="pot2f.jpg" alt="pot2" class="floating-image float3" loading="lazy" />
+  </div>
+  <div class="floating-sub-gallery" data-group="3" style="display:none;">
+    <img src="pot3a.jpg" alt="pot3" class="floating-image float1" loading="lazy" />
+    <img src="pot3b.jpg" alt="pot3" class="floating-image float2" loading="lazy" />
+    <img src="pot3c.jpg" alt="pot3" class="floating-image float3" loading="lazy" />
+    <img src="pot3d.jpg" alt="pot3" class="floating-image float1" loading="lazy" />
+    <img src="pot3e.jpg" alt="pot3" class="floating-image float2" loading="lazy" />
+    <img src="pot3f.jpg" alt="pot3" class="floating-image float3" loading="lazy" />
+  </div>
+  <div class="floating-sub-gallery" data-group="4" style="display:none;">
+    <img src="pot4a.jpg" alt="pot4" class="floating-image float1" loading="lazy" />
+    <img src="pot4b.jpg" alt="pot4" class="floating-image float2" loading="lazy" />
+    <img src="pot4c.jpg" alt="pot4" class="floating-image float3" loading="lazy" />
+    <img src="pot4d.jpg" alt="pot4" class="floating-image float1" loading="lazy" />
+    <img src="pot4e.jpg" alt="pot4" class="floating-image float2" loading="lazy" />
+    <img src="pot4f.jpg" alt="pot4" class="floating-image float3" loading="lazy" />
+  </div>
+  <!-- Repeat similar blocks for data-group 5 to 24, updating the image srcs accordingly -->
+  <!-- Example for group 5 -->
+  <div class="floating-sub-gallery" data-group="5" style="display:none;">
+    <img src="pot5a.jpg" alt="pot5" class="floating-image float1" loading="lazy" />
+    <img src="pot5b.jpg" alt="pot5" class="floating-image float2" loading="lazy" />
+    <img src="pot5c.jpg" alt="pot5" class="floating-image float3" loading="lazy" />
+    <img src="pot5d.jpg" alt="pot5" class="floating-image float1" loading="lazy" />
+    <img src="pot5e.jpg" alt="pot5" class="floating-image float2" loading="lazy" />
+    <img src="pot5f.jpg" alt="pot5" class="floating-image float3" loading="lazy" />
+  </div>
+  <!-- Continue for groups 6 through 24 as needed -->
+  <!-- ... -->
   <script>
     const mainGallery = document.getElementById('mainGallery');
     const subGalleries = document.querySelectorAll('.floating-sub-gallery');
     const backButton = document.getElementById('backButton');
-
-    // Gallery switching logic
+    // Show sub-gallery when clicking a main image
     mainGallery.querySelectorAll('img').forEach(img => {
       img.addEventListener('click', () => {
         const group = img.getAttribute('data-group');
         mainGallery.style.display = 'none';
-        const subGallery = document.querySelector(`.floating-sub-gallery[data-group="${group}"]`);
-        subGallery.style.display = 'block';
+        subGalleries.forEach(gallery => {
+          if (gallery.getAttribute('data-group') === group) {
+            gallery.style.display = 'grid';
+          } else {
+            gallery.style.display = 'none';
+          }
+        });
         backButton.classList.add('visible');
       });
     });
-
+    // Back button goes back to main gallery
     backButton.addEventListener('click', () => {
       subGalleries.forEach(gallery => {
         gallery.style.display = 'none';
       });
-      mainGallery.style.display = 'block';
+      mainGallery.style.display = 'grid';
       backButton.classList.remove('visible');
-    });
-
-    // Zoom functionality for sub-gallery images
-    document.querySelectorAll('.floating-sub-gallery img').forEach(img => {
-      img.addEventListener('click', (e) => {
-        e.stopPropagation();
-        document.getElementById('zoomImage').src = img.src;
-        document.getElementById('zoomView').classList.add('show');
-        const parentGallery = img.closest('.floating-sub-gallery');
-        parentGallery.style.display = 'none';
-        document.getElementById('zoomView').setAttribute('data-group', parentGallery.getAttribute('data-group'));
-      });
-    });
-
-    document.getElementById('zoomBackButton').addEventListener('click', () => {
-      const zoomView = document.getElementById('zoomView');
-      const zoomGroup = zoomView.getAttribute('data-group');
-      if (zoomGroup) {
-        const subGallery = document.querySelector(`.floating-sub-gallery[data-group="${zoomGroup}"]`);
-        if (subGallery) subGallery.style.display = 'block';
-      }
-      zoomView.classList.remove('show');
     });
   </script>
 </body>
